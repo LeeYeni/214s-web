@@ -15,6 +15,8 @@ class UserService:
         self.token_url = "https://kauth.kakao.com/oauth/token"
         self.user_info_url = "https://kapi.kakao.com/v2/user/me"
 
+        self.frontend_url = os.getenv("FRONTEND_URL")
+
     def get_url(self) -> URLResponse:
         """
         인가 URL을 생성합니다.
@@ -34,7 +36,7 @@ class UserService:
         if not user:
             user = UserRepository.save(provider_id)
 
-        redirect_url = f"https://214s.yeni-lab.org/home/{user.id}"
+        redirect_url = f"{self.frontend_url}/home/{user.id}"
 
         return redirect_url
 
